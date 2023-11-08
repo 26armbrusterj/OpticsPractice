@@ -145,12 +145,12 @@ function keyActions(){
 			rotationOnSelected = true;
 
 		}
-		/*if (keys[16] == false){
+		if (keys[16] == false){
 			if (selected != null && rotationOnSelected == true){
 				mirrors[selected].image.src = "selectedMirror" + String(mirrors[selected].numMirrors) + ".png";
 			}
 			rotationOnSelected = false;
-		}*/
+		}
 	}
 }
 
