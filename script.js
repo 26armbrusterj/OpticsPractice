@@ -31,7 +31,7 @@ function startGame(){
 	laserOn = false;
 	isTyping = false;
 	score = 0.0;
-	showGrid = false;
+	showGrid = true;
 
 	laserButton = document.getElementById("switch");
 	xPosBox = document.getElementById("xPos");
@@ -66,9 +66,9 @@ function startGame(){
 	for (var i = 0; i < 5; i++){
 		mirrors.push(new Mirror(myGameArea.canvas.width * 0.7 + 10 + tempLength * 0.5, (i + 1) * tempLength * 0.5, Math.PI / 4.0, tempLength, 1));
 	}
-	for (var i = 5; i < 8; i++){
+	/*for (var i = 5; i < 8; i++){
 		mirrors.push(new Mirror(myGameArea.canvas.width * 0.7 + 10 + tempLength * 0.5, (i + 1) * tempLength * 0.5, Math.PI / 4.0, tempLength, -1));
-	}
+	}*/
 
 	pointer = new Pointer(myGameArea.canvas.width * 0.7 * (5.0 / 8.0) * 0.5);
 	pointer.randomize();
