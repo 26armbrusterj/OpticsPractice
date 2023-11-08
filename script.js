@@ -101,10 +101,6 @@ function setAngle(){
     setText();
 }
 
-function getHelp(){
-	alert("Welcome to The Laser Shoot Simulator!\nHere are a few tips:\n1) Click and drag to move the mirrors.\n2) For precision movement use the arrow keys.\n3) When selected on a mirror hold shift while clicking and dragging to rotate the mirror.\n4) For precision rotation hold shift while pressing the arrow keys.\n5) Press enter when selected on a mirror to toggle between the different mirror styles.");
-}
-
 function showHideGrid(){
 	if (grid.value == "Show Grid"){
 		showGrid = true;
@@ -149,22 +145,22 @@ function keyActions(){
 			rotationOnSelected = true;
 
 		}
-		if (keys[16] == false){
+		/*if (keys[16] == false){
 			if (selected != null && rotationOnSelected == true){
 				mirrors[selected].image.src = "selectedMirror" + String(mirrors[selected].numMirrors) + ".png";
 			}
 			rotationOnSelected = false;
-		}
+		}*/
 	}
 }
 
 function laserOnOff(){
-	if (laserButton.value == "Laser On"){
-		laserOn = true;
+	if (laserButton.value == "Laser Off"){
+		laserOn = false;
 		laserButton.value = "Laser Off";
 	}
 	else{
-		laserOn = false;
+		laserOn = true;
 		laserButton.value = "Laser On"
 	}
 }
