@@ -1,2 +1,2 @@
 # opticsSim
-This is a simulator for the optics event in science olympiad division C. Just download the project and open the HTML file to run it.
+This projected is derived from SeaSnell's original opticsSim project as a platform to test the laser shoot portion of Sci Oly Optics virtually.
