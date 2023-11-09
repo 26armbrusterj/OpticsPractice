@@ -45,7 +45,7 @@ function startGame(){
 	scoreLabel = document.getElementById("score");
 	grid = document.getElementById("grid");
 	data = document.getElementById("data");
-	timer = document.getElementById("timer");
+	timer = document.getElementById("timer").innerHTML;
 
 	document.getElementById("xPos").addEventListener("keydown", function(event) {
     	if (event.keyCode === 13) {
@@ -81,8 +81,8 @@ function startGame(){
 
 function incTimer(){
 	time += 1;
-	console.log(String(time));
-	timer.innerHTML = String(time);
+	console.log(time);
+	timer = time;
 }
 
 function setXPos(){
