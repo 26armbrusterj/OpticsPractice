@@ -378,7 +378,7 @@ function calculatePoints(){
 		return;
 	}
 
-	//while (true){
+	while (true){
 		var laserPointX = points[points.length - 1][0];
 		var laserPointY = points[points.length - 1][1];
 		var laserAngle = angles[angles.length - 1];
@@ -587,7 +587,7 @@ function calculatePoints(){
 
 		angles.push(finalAngle);
 		lastMirrors.push(collidesWith);
-	//}
+	}
 }
 
 function normalizeAngle360(angle){
