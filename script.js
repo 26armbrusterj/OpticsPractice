@@ -82,7 +82,7 @@ function startGame(){
 function incTimer(){
 	time += 1;
 	console.log(time);
-	//timer.innerHTML = time;
+	timer.innerHTML = time;
 }
 
 function setXPos(){
