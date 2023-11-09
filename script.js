@@ -20,6 +20,8 @@ var grid;
 var showGrid;
 var data;
 var final;
+var timer;
+var time;
 
 function startGame(){
 	keys = {};
@@ -34,6 +36,7 @@ function startGame(){
 	score = 0.0;
 	showGrid = true;
 	final = false;
+	time = 0;
 
 	laserButton = document.getElementById("switch");
 	xPosBox = document.getElementById("xPos");
@@ -42,6 +45,7 @@ function startGame(){
 	scoreLabel = document.getElementById("score");
 	grid = document.getElementById("grid");
 	data = document.getElementById("data");
+	timer = document.getElementById("timer");
 
 	document.getElementById("xPos").addEventListener("keydown", function(event) {
     	if (event.keyCode === 13) {
@@ -71,6 +75,13 @@ function startGame(){
 
 	pointer = new Pointer(myGameArea.canvas.width * 0.7 * (5.0 / 8.0) * 0.5);
 	pointer.setY(0.75);
+
+	setInterval(incTimer, 1000);
+}
+
+function incTimer(){
+	time += 1;
+	timer.innerHTML = time;
 }
 
 function setXPos(){
