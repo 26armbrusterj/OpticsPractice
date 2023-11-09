@@ -19,6 +19,7 @@ var scoreLabel;
 var grid;
 var showGrid;
 var data;
+var final;
 
 function startGame(){
 	keys = {};
@@ -32,6 +33,7 @@ function startGame(){
 	isTyping = false;
 	score = 0.0;
 	showGrid = true;
+	final = false;
 
 	laserButton = document.getElementById("switch");
 	xPosBox = document.getElementById("xPos");
@@ -64,14 +66,11 @@ function startGame(){
 
 	var tempLength = myGameArea.canvas.width * 0.7 * (6.5 / 56.0);
 	for (var i = 0; i < 5; i++){
-		mirrors.push(new Mirror(myGameArea.canvas.width * 0.7 + 10 + tempLength * 0.5, (i + 1) * tempLength * 0.5, Math.PI / 4.0, tempLength, 1));
-	}
-	/*for (var i = 5; i < 8; i++){
 		mirrors.push(new Mirror(myGameArea.canvas.width * 0.7 + 10 + tempLength * 0.5, (i + 1) * tempLength * 0.5, Math.PI / 4.0, tempLength, -1));
-	}*/
+	}
 
 	pointer = new Pointer(myGameArea.canvas.width * 0.7 * (5.0 / 8.0) * 0.5);
-	pointer.randomize();
+	pointer.setY(0.75);
 }
 
 function setXPos(){
@@ -101,16 +100,6 @@ function setAngle(){
     setText();
 }
 
-function showHideGrid(){
-	if (grid.value == "Show Grid"){
-		showGrid = true;
-		grid.value = "Hide Grid";
-	}
-	else{
-		showGrid = false;
-		grid.value = "Show Grid"
-	}
-}
 
 function showHideData(){
 	if (data.value == "Show Data"){
@@ -138,7 +127,7 @@ function textIn(){
 
 function keyActions(){
 	if (isTyping == false){
-		if (keys[16] == true){
+		if (keys[16] == true && final == false){
 			if (selected != null && rotationOnSelected == false){
 				mirrors[selected].image.src = "rotateMirror" + String(mirrors[selected].numMirrors) + ".png";
 			}
@@ -162,6 +151,7 @@ function laserOnOff(){
 	else{
 		laserOn = true;
 		laserButton.value = "Laser On"
+		final = true;
 	}
 }
 
@@ -176,67 +166,67 @@ var myGameArea = {
         window.addEventListener('keydown', function (e) {
             keys[e.keyCode] = true;
 
-            if (isTyping == false){
-            	if (keys[13] == true){
-					if (selected != null){
-						mirrors[selected].numMirrors += 1;
-						mirrors[selected].numMirrors %= 4;
-						if (mirrors[selected].numMirrors == 3){
-							mirrors[selected].numMirrors = -1;
-						}
-						if (rotationOnSelected == true){
-							mirrors[selected].image.src = "rotateMirror" + String(mirrors[selected].numMirrors) + ".png";
-						}
-						else{
-							mirrors[selected].image.src = "selectedMirror" + String(mirrors[selected].numMirrors) + ".png";
-						}
-					}
+            if (isTyping == false && final == false){
+            	/*if (keys[13] == true){ //Enter (Changes mirror so disabled)
+			if (selected != null){
+				mirrors[selected].numMirrors += 1;
+				mirrors[selected].numMirrors %= 4;
+				if (mirrors[selected].numMirrors == 3){
+					mirrors[selected].numMirrors = -1;
 				}
+				if (rotationOnSelected == true){
+					mirrors[selected].image.src = "rotateMirror" + String(mirrors[selected].numMirrors) + ".png";
+				}
+				else {
+					mirrors[selected].image.src = "selectedMirror" + String(mirrors[selected].numMirrors) + ".png";
+				}
+			}
+		}*/
 
-				if (keys[37] == true){
-					if (selected != null){
-						if (selected != null && rotationOnSelected == false){
-							mirrors[selected].x -= 0.25;
-						}
-						else{
-							mirrors[selected].angle += 0.005;
-						}
-					}
-					setText();
+		if (keys[37] == true){ //Left arrow
+			if (selected != null){
+				if (selected != null && rotationOnSelected == false){
+					mirrors[selected].x -= 0.25;
 				}
-				if (keys[39] == true){
-					if (selected != null){
-						if (selected != null && rotationOnSelected == false){
-							mirrors[selected].x += 0.25;
-						}
-						else{
-							mirrors[selected].angle -= 0.005;
-						}
-					}
-					setText();
+				else{
+					mirrors[selected].angle += 0.005;
 				}
-				if (keys[38] == true){
-					if (selected != null){
-						if (rotationOnSelected == false){
-							mirrors[selected].y -= 0.25;
-						}
-						else{
-							mirrors[selected].angle -= 0.005;
-						}
-					}
-					setText();
+			}
+			setText();
+		}
+		if (keys[39] == true){ //Right arrow
+			if (selected != null){
+				if (selected != null && rotationOnSelected == false){
+					mirrors[selected].x += 0.25;
 				}
-				if (keys[40] == true){
-					if (selected != null){
-						if (rotationOnSelected == false){
-							mirrors[selected].y += 0.25;
-						}
-						else{
-							mirrors[selected].angle += 0.005;
-						}
-					}
-					setText();
+				else{
+					mirrors[selected].angle -= 0.005;
 				}
+			}
+			setText();
+		}
+		if (keys[38] == true){ //Down arrow
+			if (selected != null){
+				if (rotationOnSelected == false){
+					mirrors[selected].y -= 0.25;
+				}
+				else{
+					mirrors[selected].angle -= 0.005;
+				}
+			}
+			setText();
+		}
+		if (keys[40] == true){ //Up arrow
+			if (selected != null){
+				if (rotationOnSelected == false){
+					mirrors[selected].y += 0.25;
+				}
+				else{
+					mirrors[selected].angle += 0.005;
+				}
+			}
+			setText();
+		}
             }
         })
         window.addEventListener('keyup', function (e) {
@@ -254,7 +244,7 @@ myGameArea.canvas.onmousedown = function(e){
 		mirrors[selected].image.src = "mirror" + String(mirrors[selected].numMirrors) + ".png";
 		mirrors[selected].length *= 439.0 / 541.0;
 		mirrors[selected].width *= 138.0 / 210.0;
-		if (rotationOnSelected == true){
+		if (rotationOnSelected == true && final == false){
 			mirrors[selected].angle = Math.atan((e.y - mirrors[selected].y) / (e.x - mirrors[selected].x));
 			if (checkDirection(mirrors[selected].x, mirrors[selected].y, e.x, e.y, mirrors[selected].angle) == false){
 				mirrors[selected].angle = Math.PI + mirrors[selected].angle;
@@ -280,7 +270,7 @@ myGameArea.canvas.onmousedown = function(e){
 	}
 
 	
-	if (rotationOnSelected == true){
+	if (rotationOnSelected == true && final == false){
 		if (selected == null && tempSelected != null){
 			selected = tempSelected
 			setText();
@@ -291,7 +281,7 @@ myGameArea.canvas.onmousedown = function(e){
 		downOnSelected = true;
 	}
 	else{
-		if (tempSelected != null){
+		if (tempSelected != null && final == false){
 			selected = tempSelected;
 			setText();
 			mirrors[selected].image.src = "selectedMirror" + String(mirrors[selected].numMirrors) + ".png";
@@ -312,7 +302,7 @@ function setText(){
 
 function finalizeScore(){
 	var lastPoint = points[points.length - 1];
-	score += Math.max(15.0 - ((Math.abs(lastPoint[1] - pointer.y) * (350.0 / (myGameArea.canvas.width * 0.7 * (5.0 / 8.0))) + Math.abs(lastPoint[0] - (myGameArea.canvas.width * 0.7 + 10.0)) * (560.0 / (myGameArea.canvas.width * 0.7))) / 10.0), 0.0);
+	score += Math.max(15.0 - ((Math.abs(lastPoint[1] - pointer.y + 10) * (350.0 / (myGameArea.canvas.width * 0.7 * (5.0 / 8.0))) + Math.abs(lastPoint[0] - (myGameArea.canvas.width * 0.7 + 10.0)) * (560.0 / (myGameArea.canvas.width * 0.7))) / 10.0), 0.0);
 }
 
 myGameArea.canvas.onmouseup = function(e){
@@ -321,7 +311,7 @@ myGameArea.canvas.onmouseup = function(e){
 }
 
 myGameArea.canvas.onmousemove = function(e){
-	if (selected != null && downOnSelected == true && clicked == true){
+	if (selected != null && downOnSelected == true && clicked == true && final == false){
 		if (rotationOnSelected == false){
 			mirrors[selected].x = e.x - selectedXDelta;
 			mirrors[selected].y = e.y - selectedYDelta;
@@ -374,8 +364,8 @@ function Pointer(y){
 		myGameArea.context.restore();
 	}
 
-	this.randomize = function(){
-		this.y = Math.random() * (myGameArea.canvas.width * 0.7 * (5.0 / 8.0) - this.width) + 10.0;
+	this.setY = function(y){
+		this.y = y * (myGameArea.canvas.width * 0.7 * (5.0 / 8.0) - this.width) + 10.0;
 	}
 }
 
@@ -388,7 +378,7 @@ function calculatePoints(){
 		return;
 	}
 
-	while (true){
+	//while (true){
 		var laserPointX = points[points.length - 1][0];
 		var laserPointY = points[points.length - 1][1];
 		var laserAngle = angles[angles.length - 1];
@@ -597,7 +587,7 @@ function calculatePoints(){
 
 		angles.push(finalAngle);
 		lastMirrors.push(collidesWith);
-	}
+	//}
 }
 
 function normalizeAngle360(angle){
