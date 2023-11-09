@@ -302,7 +302,7 @@ function setText(){
 
 function finalizeScore(){
 	var lastPoint = points[points.length - 1];
-	score += Math.max(15.0 - ((Math.abs(lastPoint[1] - pointer.y + 10) * (350.0 / (myGameArea.canvas.width * 0.7 * (5.0 / 8.0))) + Math.abs(lastPoint[0] - (myGameArea.canvas.width * 0.7 + 10.0)) * (560.0 / (myGameArea.canvas.width * 0.7))) / 10.0), 0.0);
+	score += Math.max(15.0 - ((Math.abs(lastPoint[1] - pointer.y - 10) * (350.0 / (myGameArea.canvas.width * 0.7 * (5.0 / 8.0))) + Math.abs(lastPoint[0] - (myGameArea.canvas.width * 0.7 + 10.0)) * (560.0 / (myGameArea.canvas.width * 0.7))) / 10.0), 0.0);
 }
 
 myGameArea.canvas.onmouseup = function(e){
