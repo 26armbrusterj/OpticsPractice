@@ -88,7 +88,7 @@ function incTimer(){
 function setXPos(){
 	xPosBox.select();
 	var toFloat = parseFloat(xPosBox.value);
-    if (toFloat && selected != null){
+    if (toFloat && selected != null && final == false){
 		mirrors[selected].x = toFloat * ((myGameArea.canvas.width * 0.7) / 56.0) + 10.0;
     }
     setText();
@@ -97,7 +97,7 @@ function setXPos(){
 function setYPos(){
 	yPosBox.select();
 	var toFloat = parseFloat(yPosBox.value);
-    if (toFloat && selected != null){
+    if (toFloat && selected != null && final == false){
 		mirrors[selected].y = -toFloat * ((myGameArea.canvas.width * 0.7 * (5.0 / 8.0)) / 35.0) + ((10.0 + myGameArea.canvas.width * 0.7 * (5.0 / 8.0)));
     }
     setText();
@@ -106,7 +106,7 @@ function setYPos(){
 function setAngle(){
 	angleBox.select();
 	var toFloat = parseFloat(angleBox.value);
-    if ((toFloat || toFloat == 0.0) && selected != null){
+    if ((toFloat || toFloat == 0.0) && selected != null && final == false){
 		mirrors[selected].angle = normalizeAngle360(-(toFloat - 360) * (Math.PI / 180.0));
     }
     setText();
