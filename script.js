@@ -178,26 +178,11 @@ var myGameArea = {
         this.canvas.height = window.innerHeight * 0.7;
         this.context = this.canvas.getContext("2d");
         document.body.insertBefore(this.canvas, document.body.childNodes[0]);
-        this.interval = setInterval(updateGameArea, 20);
+        this.interval = setInterval(updateGameArea, 500);
         window.addEventListener('keydown', function (e) {
             keys[e.keyCode] = true;
 
             if (isTyping == false && final == false){
-            	/*if (keys[13] == true){ //Enter (Changes mirror so disabled)
-			if (selected != null){
-				mirrors[selected].numMirrors += 1;
-				mirrors[selected].numMirrors %= 4;
-				if (mirrors[selected].numMirrors == 3){
-					mirrors[selected].numMirrors = -1;
-				}
-				if (rotationOnSelected == true){
-					mirrors[selected].image.src = "rotateMirror" + String(mirrors[selected].numMirrors) + ".png";
-				}
-				else {
-					mirrors[selected].image.src = "selectedMirror" + String(mirrors[selected].numMirrors) + ".png";
-				}
-			}
-		}*/
 
 		if (keys[37] == true){ //Left arrow
 			if (selected != null){
