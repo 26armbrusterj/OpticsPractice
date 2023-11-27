@@ -82,7 +82,11 @@ function startGame(){
 function incTimer(){
 	time += 1;
 	console.log(time);
-	timer.innerHTML = time;
+	try {
+		timer.innerHTML = time;
+	} catch {
+		console.log("Couldn't set timer");
+	}
 }
 
 function setXPos(){
