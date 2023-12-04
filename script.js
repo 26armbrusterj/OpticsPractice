@@ -80,12 +80,13 @@ function startGame(){
 }
 
 function incTimer(){
-	time += 1;
-	console.log(time);
-	try {
+	if (!final) {
+		time += 1;
+		console.log(time);
 		timer.innerHTML = time;
-	} catch {
-		console.log("Couldn't set timer");
+		if (time >= 240) {
+			laserOnOff();
+		}
 	}
 }
 
