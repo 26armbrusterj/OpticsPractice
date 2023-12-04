@@ -42,6 +42,9 @@
 				if (document.getElementById("pw").value == "Password") {
 					document.getElementById("directions").style.display = "none";
 					startGame();
+				} else {
+					document.getElementById("pwText").innerHTML = "Wrong Password:";
+					document.getElementById("pwText").style.color = "red";
 				}
 			}
 		</script>
@@ -53,7 +56,7 @@
 			<div class="modal-content">
 				<h2>Directions:</h2>
 				<p>Directions go here</p>
-				<p>Password:</p><input type="password" id="pw"> <span class="close" onclick="closeDir()">Start</span>
+				<p id="pwText">Password:</p><input type="password" id="pw"> <span class="close" onclick="closeDir()">Start</span>
 			</div>
 		</div>
 		<h2 id = "score">Score: 0</h2>
