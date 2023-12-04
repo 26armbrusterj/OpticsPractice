@@ -12,7 +12,6 @@
 				height: 100%; /* Full height */
 				overflow: auto; /* Enable scroll if needed */
 				background-color: rgb(0,0,0); /* Fallback color */
-				background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 			}
 
 			/* Modal Content/Box */
@@ -42,11 +41,8 @@
 			// Get the modal
 			var modal = document.getElementById("directions");
 
-			// Get the <span> element that closes the modal
-			var span = document.getElementById("dirClose");
-
 			// When the user clicks on <span> (x), close the modal
-			span.onclick = function() {
+			function closeDir() {
 				modal.style.display = "none";
 				startGame();
 			}
@@ -59,7 +55,7 @@
 			<div class="modal-content">
 				<h2>Directions</h2>
 				<p>Directions go here</p>
-				<span class="close" id="dirClose">Start</span>
+				<span class="close" onclick="closeDir">Start</span>
 			</div>
 		</div>
 		<h2 id = "score">Score: 0</h2>
