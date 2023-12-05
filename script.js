@@ -79,8 +79,10 @@ function startGame(){
 	pointer.setY(pointerY);
 
 	window.addEventListener('resize', function(event){
-		pointer.setY(pointerY);
-		pointer.x = 10 + myGameArea.canvas.width * 0.7 - pointer.length;
+		if (!final) {
+			pointer.setY(pointerY);
+			pointer.x = 10 + myGameArea.canvas.width * 0.7 - pointer.length;
+		}
 	});
 	
 	setInterval(incTimer, 1000);
@@ -645,48 +647,50 @@ function setGrid(){
 }
 
 function updateGameArea() {
-    myGameArea.clear();
-    score = 0.0;
-    keyActions();
+	if (!final) {
+		myGameArea.clear();
+    		score = 0.0;
+    		keyActions();
+		
+		myGameArea.canvas.width = window.innerWidth * 0.7;
+		myGameArea.canvas.height = window.innerHeight * 0.7;
 
-    myGameArea.canvas.width = window.innerWidth * 0.7;
-    myGameArea.canvas.height = window.innerHeight * 0.7;
+		myGameArea.context.beginPath();
+		myGameArea.context.lineWidth = "4";
+		myGameArea.context.strokeStyle = "black";
+		myGameArea.context.rect(10, 10, myGameArea.canvas.width * 0.7, myGameArea.canvas.width * 0.7 * (5.0 / 8.0));
+		myGameArea.context.stroke();
 
-    myGameArea.context.beginPath();
-	myGameArea.context.lineWidth = "4";
-	myGameArea.context.strokeStyle = "black";
-	myGameArea.context.rect(10, 10, myGameArea.canvas.width * 0.7, myGameArea.canvas.width * 0.7 * (5.0 / 8.0));
-	myGameArea.context.stroke();
+		myGameArea.context.beginPath();
+		myGameArea.context.lineWidth = "1";
+		myGameArea.context.strokeStyle = "grey";
+		myGameArea.context.moveTo(10, 10 + myGameArea.canvas.width * 0.7 * (5.0 / 8.0) * 0.5);
+		myGameArea.context.lineTo(10 + myGameArea.canvas.width * 0.7, 10 + myGameArea.canvas.width * 0.7 * (5.0 / 8.0) * 0.5);
+		myGameArea.context.stroke();
 
-	myGameArea.context.beginPath();
-	myGameArea.context.lineWidth = "1";
-	myGameArea.context.strokeStyle = "grey";
-	myGameArea.context.moveTo(10, 10 + myGameArea.canvas.width * 0.7 * (5.0 / 8.0) * 0.5);
-	myGameArea.context.lineTo(10 + myGameArea.canvas.width * 0.7, 10 + myGameArea.canvas.width * 0.7 * (5.0 / 8.0) * 0.5);
-	myGameArea.context.stroke();
+		if (showGrid){
+			setGrid();
+		}
 
-	if (showGrid){
-		setGrid();
+		calculatePoints();
+
+		myGameArea.context.beginPath();
+		myGameArea.context.lineWidth = "4";
+		myGameArea.context.strokeStyle = "red";
+		myGameArea.context.moveTo(points[0][0], points[0][1]);
+		for (var i = 1; i < points.length; i++){
+			myGameArea.context.lineTo(points[i][0], points[i][1]);
+		}
+		myGameArea.context.stroke();
+
+		for (var i = 0; i < mirrors.length; i++){
+			mirrors[i].update();
+		}
+
+		pointer.update();
+		finalizeScore();
+		scoreLabel.innerText = "Score: " + String(Math.round(score * 100.0) / 100.0);
 	}
-
-	calculatePoints();
-
-	myGameArea.context.beginPath();
-	myGameArea.context.lineWidth = "4";
-	myGameArea.context.strokeStyle = "red";
-	myGameArea.context.moveTo(points[0][0], points[0][1]);
-	for (var i = 1; i < points.length; i++){
-		myGameArea.context.lineTo(points[i][0], points[i][1]);
-	}
-	myGameArea.context.stroke();
-
-	for (var i = 0; i < mirrors.length; i++){
-		mirrors[i].update();
-	}
-
-	pointer.update();
-	finalizeScore();
-	scoreLabel.innerText = "Score: " + String(Math.round(score * 100.0) / 100.0);
 }
 
 
