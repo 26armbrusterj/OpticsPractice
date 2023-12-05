@@ -22,6 +22,7 @@ var data;
 var final;
 var timer;
 var time;
+var pointerY
 
 function startGame(){
 	keys = {};
@@ -37,6 +38,7 @@ function startGame(){
 	showGrid = true;
 	final = false;
 	time = 0;
+	pointerY = 0.75;
 
 	laserButton = document.getElementById("switch");
 	xPosBox = document.getElementById("xPos");
@@ -74,8 +76,13 @@ function startGame(){
 	}
 
 	pointer = new Pointer(myGameArea.canvas.width * 0.7 * (5.0 / 8.0) * 0.5);
-	pointer.setY(0.75);
+	pointer.setY(pointerY);
 
+	window.addEventListener('resize', function(event){
+		pointer.setY(pointerY);
+		pointer.x = 10 + myGameArea.canvas.width * 0.7 - pointer.length;
+	});
+	
 	setInterval(incTimer, 1000);
 }
 
