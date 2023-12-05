@@ -177,7 +177,7 @@ function laserOnOff(){
 	else{
 		laserOn = true;
 		laserButton.value = "Laser On"
-		final = true;
+		const finalTimeout = setTimeout(function() {final = true;}, 100);
 	}
 }
 
