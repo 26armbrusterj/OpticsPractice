@@ -22,7 +22,9 @@ var data;
 var final;
 var timer;
 var time;
-var pointerY
+var pointerY;
+var barX;
+var barA;
 
 function startGame(){
 	keys = {};
@@ -39,6 +41,8 @@ function startGame(){
 	final = false;
 	time = 0;
 	pointerY = 0.75;
+	barX = 20.0;
+	barA = 235.0;
 
 	laserButton = document.getElementById("switch");
 	xPosBox = document.getElementById("xPos");
@@ -71,7 +75,7 @@ function startGame(){
 	myGameArea.start();
 
 	var tempLength = myGameArea.canvas.width * 0.7 * (6.5 / 56.0);
-	for (var i = 0; i < 5; i++){
+	for (var i = 0; i < 6; i++){
 		mirrors.push(new Mirror(myGameArea.canvas.width * 0.7 + 10 + tempLength * 0.5, (i + 1) * tempLength * 0.5, Math.PI / 4.0, tempLength, -1));
 	}
 
@@ -82,6 +86,7 @@ function startGame(){
 		if (!final) {
 			pointer.setY(pointerY);
 			pointer.x = 10 + myGameArea.canvas.width * 0.7 - pointer.length;
+			
 		}
 	});
 	
@@ -270,7 +275,7 @@ myGameArea.canvas.onmousedown = function(e){
 
 	var tempSelected = null;
 	var minDist = 10000000000000000000.0;
-	for (var i = 0; i < mirrors.length; i++){
+	for (var i = 0; i < mirrors.length-1; i++){
 		var dist = Math.pow(mirrors[i].x - e.x, 2.0) + Math.pow(mirrors[i].y - e.y, 2.0);
 		if (dist <= Math.pow(mirrors[i].length * 0.5, 2.0)){
 			if (dist < minDist){
@@ -683,6 +688,11 @@ function updateGameArea() {
 		}
 		myGameArea.context.stroke();
 
+		mirrors[5].x = barX * ((myGameArea.canvas.width * 0.7) / 56.0) + 10.0;
+		mirrors[5].y = -17.5 * ((myGameArea.canvas.width * 0.7 * (5.0 / 8.0)) / 35.0) + ((10.0 + myGameArea.canvas.width * 0.7 * (5.0 / 8.0)));
+		mirrors[5].angle = normalizeAngle360(-(barA - 360) * (Math.PI / 180.0));
+		
+		
 		for (var i = 0; i < mirrors.length; i++){
 			mirrors[i].update();
 		}
