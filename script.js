@@ -41,8 +41,8 @@ function startGame(){
 	final = false;
 	time = 0;
 	pointerY = 0.75;
-	barX = 20.0;
-	barA = 235.0;
+	barX = 30.0;
+	barA = 330.0;
 
 	laserButton = document.getElementById("switch");
 	xPosBox = document.getElementById("xPos");
@@ -79,7 +79,7 @@ function startGame(){
 		mirrors.push(new Mirror(myGameArea.canvas.width * 0.7 + 10 + tempLength * 0.5, (i + 1) * tempLength * 0.5, Math.PI / 4.0, tempLength, -1));
 	}
 
-	pointer = new Pointer(myGameArea.canvas.width * 0.7 * (5.0 / 8.0) * 0.5);
+	pointer = new Pointer(myGameArea.canvas.width * 0.2 * (5.0 / 8.0) * 0.5);
 	pointer.setY(pointerY);
 
 	window.addEventListener('resize', function(event){
