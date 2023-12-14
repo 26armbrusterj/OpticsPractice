@@ -40,9 +40,9 @@ function startGame(){
 	showGrid = true;
 	final = false;
 	time = 0;
-	pointerY = 0.75;
-	barX = 30.0;
-	barA = 330.0;
+	pointerY = 0.4;
+	barX = 20.0;
+	barA = 275.0;
 
 	laserButton = document.getElementById("switch");
 	xPosBox = document.getElementById("xPos");
